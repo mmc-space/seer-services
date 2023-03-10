@@ -5,4 +5,6 @@ export class BattleService {
   getHello(): string {
     return 'Hello World!'
   }
+
+  match() {}
 }

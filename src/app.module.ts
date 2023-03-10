@@ -1,12 +1,25 @@
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
 
 import { BattleModule } from '@/modules/battle/battle.module'
+import { ElveModule } from '@/modules/elve/elve.module'
+import { PlayerModule } from '@/modules/player/player.module'
+
+import { config } from '@/common/configs'
 
 @Module({
-  imports: [BattleModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: ['.development.env', '.production.env'],
+      load: [config],
+      isGlobal: true,
+    }),
+    BattleModule,
+    ElveModule,
+    PlayerModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
