@@ -30,7 +30,6 @@ async function bootstrap() {
 
   if (swaggerConfig?.enabled) swaggerDoc(app, swaggerConfig)
 
-  // Cors
   if (corsConfig?.enabled) app.enableCors()
 
   await app.listen(nestConfig?.port || 3000, '0.0.0.0')

@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { compareSync } from 'bcrypt'
 import { Repository } from 'typeorm'
@@ -16,8 +20,15 @@ export class PlayerService {
     return 'Hello World!'
   }
 
+  async findById(id: number) {
+    const user = await this.playerRepository.findOne({ where: { id } })
+    return user
+  }
+
   async createUser(dto: PlayerDto) {
-    const {} = dto
+    const player = await this.playerRepository.save(dto)
+
+    return player
   }
 
   async login(account: string, password: string) {

@@ -1,10 +1,24 @@
 import { Injectable } from '@nestjs/common'
+import { Server, Socket } from 'socket.io'
 
 @Injectable()
 export class BattleService {
-  getHello(): string {
-    return 'Hello World!'
+  private server: Server
+  private players: Map<string, Socket> = new Map()
+
+  getHello() {
+    return this.server
   }
 
-  match() {}
+  setServer(server: Server) {
+    this.server = server
+  }
+
+  handleConnect(client: Socket) {
+    this.players.set(client.id, client)
+  }
+
+  handleDisconnect(client: Socket) {
+    this.players.delete(client.id)
+  }
 }
